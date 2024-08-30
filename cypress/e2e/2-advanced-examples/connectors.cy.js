@@ -1,13 +1,16 @@
 /// <reference types="cypress" />
+import ConnectorsPage from '../../support/pageLocators/commands/connectors/ConnectorsPage';
 
 context('Connectors', () => {
+  const connectorsPage = new ConnectorsPage()
   beforeEach(() => {
     cy.visit('/commands/connectors')
   })
 
   it('.each() - iterate over an array of elements', () => {
     // https://on.cypress.io/each
-    cy.get('.connectors-each-ul>li')
+    //cy.get('.connectors-each-ul>li')
+    connectorsPage.nameLists()
       .each(($el, index, $list) => {
         console.log($el, index, $list)
       })
@@ -15,7 +18,8 @@ context('Connectors', () => {
 
   it('.its() - get properties on the current subject', () => {
     // https://on.cypress.io/its
-    cy.get('.connectors-its-ul>li')
+    // cy.get('.connectors-its-ul>li')
+    connectorsPage.nameLists()
       // calls the 'length' property yielding that value
       .its('length')
       .should('be.gt', 2)
@@ -24,13 +28,16 @@ context('Connectors', () => {
   it('.invoke() - invoke a function on the current subject', () => {
     // our div is hidden in our script.js
     // $('.connectors-div').hide()
-    cy.get('.connectors-div').should('be.hidden')
+    // cy.get('.connectors-div').should('be.hidden')
+    connectorsPage.connectorsDiv().should('be.hidden')
 
     // https://on.cypress.io/invoke
     // call the jquery method 'show' on the 'div.container'
-    cy.get('.connectors-div').invoke('show')
+    // cy.get('.connectors-div').invoke('show')
+    connectorsPage.connectorsDiv().invoke('show')
 
-    cy.get('.connectors-div').should('be.visible')
+    // cy.get('.connectors-div').should('be.visible')
+    connectorsPage.connectorsDiv().should('be.visible')
   })
 
   it('.spread() - spread an array as individual args to callback function', () => {
@@ -47,7 +54,8 @@ context('Connectors', () => {
   describe('.then()', () => {
     it('invokes a callback function with the current subject', () => {
       // https://on.cypress.io/then
-      cy.get('.connectors-list > li')
+      //cy.get('.connectors-list > li')
+      connectorsPage.connectorsList()
         .then(($lis) => {
           expect($lis, '3 items').to.have.length(3)
           expect($lis.eq(0), 'first item').to.contain('Walk the dog')
