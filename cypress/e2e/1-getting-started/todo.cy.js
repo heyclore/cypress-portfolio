@@ -1,6 +1,5 @@
-import TodoPage from '../../support/pageLocators/todo/TodoPage';
-
 /// <reference types="cypress" />
+import TodoPage from '../../support/pageLocators/todo/TodoPage';
 
 // Welcome to Cypress!
 //
@@ -145,7 +144,10 @@ describe('example to-do app', () => {
 
       // For good measure, let's also assert that the task we checked off
       // does not exist on the page.
-      cy.contains('Pay electric bill').should('not.exist')
+
+      // cy.contains('Pay electric bill').should('not.exist')
+      todoPage.todoLists()
+        .contains('Pay electric bill').should('not.exist')
     })
 
     it('can filter for completed tasks', () => {
@@ -164,10 +166,12 @@ describe('example to-do app', () => {
         .first()
         .should('have.text', 'Pay electric bill')
 
-      cy.contains('Walk the dog').should('not.exist')
+      // cy.contains('Walk the dog').should('not.exist')
+      todoPage.todoLists()
+        .contains('Walk the dog').should('not.exist')
     })
 
-    it.only('can delete all completed tasks', () => {
+    it('can delete all completed tasks', () => {
       // First, let's click the "Clear completed" button
       // `contains` is actually serving two purposes here.
       // First, it's ensuring that the button exists within the dom.

@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
+import AssertionsPage from '../../support/pageLocators/commands/assertions/AssertionsPage';
 
 context('Assertions', () => {
+  const assertionsPage = new AssertionsPage()
   beforeEach(() => {
     cy.visit('/commands/assertions')
   })
@@ -8,7 +10,8 @@ context('Assertions', () => {
   describe('Implicit Assertions', () => {
     it('.should() - make an assertion about the current subject', () => {
       // https://on.cypress.io/should
-      cy.get('.assertion-table')
+      // cy.get('.assertion-table')
+      assertionsPage.assertionsTable()
         .find('tbody tr:last')
         .should('have.class', 'success')
         .find('td')
@@ -28,7 +31,8 @@ context('Assertions', () => {
       // a better way to check element's text content against a regular expression
       // is to use "cy.contains"
       // https://on.cypress.io/contains
-      cy.get('.assertion-table')
+      // cy.get('.assertion-table')
+      assertionsPage.assertionsTable()
         .find('tbody tr:last')
         // finds first <td> element with text content matching regular expression
         .contains('td', /column content/i)
@@ -40,7 +44,8 @@ context('Assertions', () => {
 
     it('.and() - chain multiple assertions together', () => {
       // https://on.cypress.io/and
-      cy.get('.assertions-link')
+      // cy.get('.assertions-link')
+      assertionsPage.cypressDocsLink()
         .should('have.class', 'active')
         .and('have.attr', 'href')
         .and('include', 'cypress.io')
@@ -65,7 +70,8 @@ context('Assertions', () => {
       // of explicit assertions within it.
       // The ".should(cb)" function will be retried
       // automatically until it passes all your explicit assertions or times out.
-      cy.get('.assertions-p')
+      // cy.get('.assertions-p')
+      assertionsPage.paragraphText()
         .find('p')
         .should(($p) => {
           // https://on.cypress.io/$
@@ -90,8 +96,9 @@ context('Assertions', () => {
     })
 
     it('finds element by class name regex', () => {
-      cy.get('.docs-header')
-        .find('div')
+      // cy.get('.docs-header')
+      //   .find('div')
+      assertionsPage.docsHeaders()
         // .should(cb) callback function will be retried
         .should(($div) => {
           expect($div).to.have.length(1)
@@ -108,8 +115,9 @@ context('Assertions', () => {
     })
 
     it('can throw any error', () => {
-      cy.get('.docs-header')
-        .find('div')
+      // cy.get('.docs-header')
+      //   .find('div')
+      assertionsPage.docsHeaders()
         .should(($div) => {
           if ($div.length !== 1) {
             // you can throw your own errors
@@ -138,14 +146,16 @@ context('Assertions', () => {
       */
       const normalizeText = (s) => s.replace(/\s/g, '').toLowerCase()
 
-      cy.get('.two-elements')
+      // cy.get('.two-elements')
+      assertionsPage.twoElements()
         .find('.first')
         .then(($first) => {
           // save text from the first element
           text = normalizeText($first.text())
         })
 
-      cy.get('.two-elements')
+      // cy.get('.two-elements')
+      assertionsPage.twoElements()
         .find('.second')
         .should(($div) => {
           // we can massage text before comparing
@@ -165,7 +175,8 @@ context('Assertions', () => {
     })
 
     it('retries the should callback until assertions pass', () => {
-      cy.get('#random-number')
+      // cy.get('#random-number')
+      assertionsPage.randomNumber()
         .should(($div) => {
           const n = parseFloat($div.text())
 
