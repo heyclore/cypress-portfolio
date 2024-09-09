@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import QueryingPage from '../../support/pageLocators/commands/querying/QueryingPage';
 
 context('Spies, Stubs, and Clock', () => {
   it('cy.spy() - wrap a method in a spy', () => {
