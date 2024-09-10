@@ -1,18 +1,25 @@
 /// <reference types="cypress" />
+import WaitingPage from '../../support/pageLocators/commands/waiting/WaitingPage';
+
+
 context('Waiting', () => {
+  const waitingPage = new WaitingPage()
   beforeEach(() => {
-    cy.visit('https://example.cypress.io/commands/waiting')
+    cy.visit('/commands/waiting')
   })
   // BE CAREFUL of adding unnecessary wait times.
   // https://on.cypress.io/best-practices#Unnecessary-Waiting
 
   // https://on.cypress.io/wait
   it('cy.wait() - wait for a specific amount of time', () => {
-    cy.get('.wait-input1').type('Wait 1000ms after typing')
+    // cy.get('.wait-input1').type('Wait 1000ms after typing')
+    waitingPage.waitInputField1().type('Wait 1000ms after typing')
     cy.wait(1000)
-    cy.get('.wait-input2').type('Wait 1000ms after typing')
+    // cy.get('.wait-input2').type('Wait 1000ms after typing')
+    waitingPage.waitInputField2().type('Wait 1000ms after typing')
     cy.wait(1000)
-    cy.get('.wait-input3').type('Wait 1000ms after typing')
+    // cy.get('.wait-input3').type('Wait 1000ms after typing')
+    waitingPage.waitInputField3().type('Wait 1000ms after typing')
     cy.wait(1000)
   })
 
@@ -22,7 +29,8 @@ context('Waiting', () => {
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
-    cy.get('.network-btn').click()
+    // cy.get('.network-btn').click()
+    waitingPage.getCommentButton().click()
 
     // wait for GET comments/1
     cy.wait('@getComment').its('response.statusCode').should('be.oneOf', [200, 304])
